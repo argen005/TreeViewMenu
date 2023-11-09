@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Меню</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style>
+        ul, #myUL {
+          list-style-type: none;
+        }
+        
+        #myUL {
+          margin: 0;
+          padding: 0;
+        }
+        
+        .caret {
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        .caret::before {
+          content: "\25B6";
+          color: black;
+          display: inline-block;
+          margin-right: 6px;
+        }
+        
+        .caret-down::before {
+          -ms-transform: rotate(90deg);
+          -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);  
+        }
+        
+        .nested {
+          display: none;
+        }
+        
+        .active {
+          display: block;
+        }
+        </style>
+    
+</head>
+<body>
+    <h1>Древовидное Меню</h1>
+    <ul id="myUL">
+        {% for item in menu_items %}
+            <li><span class="caret"><a href="{% url 'menu_item_detail' slug=item.slug %}">{{ item.title }}</a></span>
+                {% if item.children.all %}
+                    <ul class="nested">
+                        {% for child in item.children.all %}
+                            <li><span class="caret"><a href="{% url 'menu_item_detail' slug=child.slug %}">{{ child.title }}</a></span>
+                                {% if child.children.all %}
+                                    <ul class="nested">
+                                        {% for child2 in child.children.all %}
+                                            <li><a href="{% url 'menu_item_detail' slug=child2.slug %}">{{ child2.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>    
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+        
+        for (i = 0; i < toggler.length; i++) {
+          toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+          });
+        }
+        </script>
+ 
+</body>
+</html>

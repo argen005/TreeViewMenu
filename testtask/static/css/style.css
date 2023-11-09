@@ -1,0 +1,38 @@
+/* Основные стили для меню */
+ul.menu {
+    list-style-type: none;
+}
+
+.menu .dropdown {
+    cursor: pointer;
+}
+
+/* Стили для интерактивности древовидного меню */
+.menu .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.menu .caret-down::before {
+    content: "\25BC";
+}
+
+.menu .nested {
+    display: none;
+}
+
+.menu .active {
+    display: block;
+}
+
+/* Стили для ссылок */
+.menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #ddd;
+}

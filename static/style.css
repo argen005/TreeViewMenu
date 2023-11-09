@@ -1,0 +1,30 @@
+ul.menu {
+    list-style-type: none;
+}
+
+.menu .dropdown {
+    cursor: pointer;
+}
+
+.menu .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.menu .caret-down::before {
+    content: "\25BC";
+}
+
+.menu .nested {
+    display: none;
+}
+
+.menu .active {
+    display: block;
+}
+
+.menu .subsubmenu .active {
+    display: block;
+}
